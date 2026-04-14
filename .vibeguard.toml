@@ -33,8 +33,7 @@ exclude_paths = [
     ".venv",
     "dist",
     "build",
-    "*.egg-info",
-    "tests/fixtures",
+    "tests"
 ]
 
 # Rule IDs to ignore across all scans. Use sparingly.

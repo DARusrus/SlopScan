@@ -13,6 +13,7 @@
 [![Python](https://img.shields.io/badge/python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![CI](https://img.shields.io/github/actions/workflow/status/YOUR-USERNAME/vibe-guard/ci.yml?style=for-the-badge&logo=github-actions&logoColor=white&label=CI)](https://github.com/YOUR-USERNAME/vibe-guard/actions)
 [![Rules](https://img.shields.io/badge/rules-81-brightgreen?style=for-the-badge&logo=semgrep&logoColor=white)](https://github.com/YOUR-USERNAME/vibe-guard/tree/main/rules)
+[![Security Score](https://img.shields.io/badge/vibe--guard-B%20(85)-green?style=for-the-badge)](https://github.com/YOUR-USERNAME/vibe-guard)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
 
 [![Languages](https://img.shields.io/badge/Python-3DDC84?style=flat-square&logo=python&logoColor=white)](rules/python/)
