@@ -1,4 +1,4 @@
-name: Dogfood — vibe-guard scans itself
+name: Dogfood — slopscan scans itself
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
         run: pip install -e .
       - name: Run dogfood scan
         run: |
-          vibe-guard scan ./src --format json --output dogfood-results.json --no-fail
+          slopscan scan ./src --format json --output dogfood-results.json --no-fail
       - name: Upload dogfood results
         uses: actions/upload-artifact@v4
         with:

@@ -3,18 +3,15 @@ requires = ["hatchling>=1.24.0"]
 build-backend = "hatchling.build"
 
 [project]
-name = "vibe-guard"
+name = "slopscan"
 version = "0.1.0"
-description = "Security scanner for AI-generated code"
+description = "slopscan — AI-aware security scanner that detects vulnerabilities in AI-generated code"
 readme = "README.md"
 license = {text = "MIT"}
 authors = [
   {name = "ahmbt", email = "ahmbt@example.com"},
 ]
-keywords = [
-  "security", "sast", "ai-security", "semgrep", "vibe-coding",
-  "static-analysis", "pre-commit", "github-actions",
-]
+keywords = ["security", "sast", "ai-security", "semgrep", "slopscan", "vibe-coding", "static-analysis"]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
@@ -46,13 +43,13 @@ dev = [
 ]
 
 [project.scripts]
-vibe-guard = "vibeguard.cli:app"
+slopscan = "vibeguard.cli:app"
 
 [project.urls]
-Homepage = "https://github.com/ahmbt/vibe-guard"
-Repository = "https://github.com/ahmbt/vibe-guard"
-Issues = "https://github.com/ahmbt/vibe-guard/issues"
-Changelog = "https://github.com/ahmbt/vibe-guard/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/ahmbt/slopscan"
+Repository = "https://github.com/ahmbt/slopscan"
+Issues = "https://github.com/ahmbt/slopscan/issues"
+Changelog = "https://github.com/ahmbt/slopscan/blob/main/CHANGELOG.md"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/vibeguard"]
@@ -66,8 +63,8 @@ ignore = ["E501"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "--cov=vibeguard --cov-report=term-missing -q"
+addopts = "--cov=src/vibeguard --cov-report=term-missing -q"
 
 [tool.coverage.run]
-source = ["vibeguard"]
+source = ["src/vibeguard"]
 omit = ["tests/*"]

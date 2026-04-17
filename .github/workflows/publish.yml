@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/project/vibe-guard/
+      url: https://pypi.org/project/slopscan/
     steps:
       - uses: actions/download-artifact@v4
         with:
@@ -79,7 +79,7 @@ jobs:
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
-          name: "vibe-guard ${{ github.ref_name }}"
+          name: "slopscan ${{ github.ref_name }}"
           body: ${{ steps.changelog.outputs.notes }}
           files: dist/*
           draft: false

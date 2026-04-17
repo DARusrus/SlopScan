@@ -171,7 +171,7 @@ class PromptInjectionPlugin(BasePlugin):
                     if pattern.search(inner):
                         findings.append(
                             self._make_finding(
-                                rule_id="vibeguard-prompt-injection-string",
+                                rule_id="slopscan-prompt-injection-string",
                                 severity="CRITICAL",
                                 file_path=str(file_path),
                                 line=line_num,

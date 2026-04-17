@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to vibe-guard are documented here.
+All notable changes to slopscan are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
@@ -28,10 +28,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - GitHub Action with SARIF upload, per-severity finding counts as outputs,
   and GitHub Step Summary table
 - Pre-commit hook integration via pre-commit framework
-- Interactive `vibe-guard init` wizard: configures .vibeguard.toml,
+- Interactive `slopscan init` wizard: configures .Slopscan.toml,
   pre-commit hook, and GitHub Actions workflow in under 60 seconds
-- `vibe-guard rules` command listing all 18 built-in rules with severity,
+- `slopscan rules` command listing all 18 built-in rules with severity,
   CWE reference, and AI context explanation
 - detect-secrets integration for entropy-based credential detection
-- `.vibeguard.toml` configuration file support with automatic discovery
-- Dogfooding: vibe-guard scans its own source code on every push to main
+- `.Slopscan.toml` configuration file support with automatic discovery
+- Dogfooding: slopscan scans its own source code on every push to main
+
+

@@ -7,7 +7,7 @@ from vibeguard.models import Finding
 
 
 class BasePlugin(ABC):
-    """Base class for all vibe-guard scanner plugins."""
+    """Base class for all slopscan scanner plugins."""
 
     @property
     @abstractmethod

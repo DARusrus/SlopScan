@@ -345,7 +345,7 @@ class SCAPlugin(BasePlugin):
             f"pypi.org/project/{name}" if ecosystem == "python" else f"npmjs.com/package/{name}"
         )
         return self._make_finding(
-            rule_id="vibeguard-sca-slopsquatting",
+            rule_id="slopscan-sca-slopsquatting",
             severity="CRITICAL",
             file_path=file_path,
             line=line,
@@ -386,7 +386,7 @@ class SCAPlugin(BasePlugin):
 
         for pkg_name, _version, ecosystem, dep_file, line_num in all_deps:
             normalized = pkg_name.lower().strip()
-            key = ("vibeguard-sca-slopsquatting", str(dep_file), line_num)
+            key = ("slopscan-sca-slopsquatting", str(dep_file), line_num)
             if key in seen_keys:
                 continue
             if ecosystem not in ("python", "npm"):
@@ -451,7 +451,7 @@ class SCAPlugin(BasePlugin):
 
         try:
             req = Request(url, method="GET")
-            req.add_header("User-Agent", "vibe-guard/0.1.0")
+            req.add_header("User-Agent", "slopscan/0.1.0")
             with urlopen(req, timeout=self.timeout) as resp:
                 return resp.status == 200
         except HTTPError as e:
@@ -497,7 +497,7 @@ class SCAPlugin(BasePlugin):
 
         return [
             self._make_finding(
-                rule_id="vibeguard-sca-known-cve",
+                rule_id="slopscan-sca-known-cve",
                 severity=severity,
                 file_path=file_path,
                 line=line,
@@ -546,7 +546,7 @@ class SCAPlugin(BasePlugin):
                 method="POST",
             )
             req.add_header("Content-Type", "application/json")
-            req.add_header("User-Agent", "vibe-guard/0.1.0")
+            req.add_header("User-Agent", "slopscan/0.1.0")
             with urlopen(req, timeout=self.timeout) as resp:
                 data = json.loads(resp.read())
                 return data.get("vulns", [])
@@ -563,7 +563,7 @@ class SCAPlugin(BasePlugin):
     ) -> Finding:
         """Create a MEDIUM finding for an unpinned dependency."""
         return self._make_finding(
-            rule_id="vibeguard-sca-unpinned",
+            rule_id="slopscan-sca-unpinned",
             severity="MEDIUM",
             file_path=file_path,
             line=line,
@@ -612,7 +612,7 @@ class SCAPlugin(BasePlugin):
             if not has_lock:
                 findings.append(
                     self._make_finding(
-                        rule_id="vibeguard-sca-no-lock-file",
+                        rule_id="slopscan-sca-no-lock-file",
                         severity="MEDIUM",
                         file_path=str(dep_file),
                         line=1,

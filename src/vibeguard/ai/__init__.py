@@ -1,4 +1,4 @@
-"""AI-powered features for vibe-guard.
+"""AI-powered features for slopscan.
 
 Provides autofix, explain, and smart false-positive filtering
 via the Gemini Flash API. All features degrade gracefully when

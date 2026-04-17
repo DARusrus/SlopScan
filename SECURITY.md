@@ -25,7 +25,7 @@ Use GitHub Security Advisories for private disclosure:
 
 ## Scope
 
-The following are considered vulnerabilities in vibe-guard itself:
+The following are considered vulnerabilities in slopscan itself:
 
 - **False negative in a security rule** — a real vulnerability pattern that a rule claims to detect but misses
 - **Command injection in the scanner** — malicious filenames or file content that could execute arbitrary commands via the Semgrep or detect-secrets subprocess calls
@@ -34,10 +34,10 @@ The following are considered vulnerabilities in vibe-guard itself:
 
 ## Out of scope
 
-The following are **not** considered vulnerabilities in vibe-guard:
+The following are **not** considered vulnerabilities in slopscan:
 
-- **False positives in rules** — a rule flagging safe code. Report these as a regular [GitHub issue](https://github.com/ahmbt/vibe-guard/issues). They are bugs, not security vulnerabilities.
-- **Vulnerabilities in scanned code** — vibe-guard detects these; it does not cause them.
+- **False positives in rules** — a rule flagging safe code. Report these as a regular [GitHub issue](https://github.com/DARusrus/slopscan/issues). They are bugs, not security vulnerabilities.
+- **Vulnerabilities in scanned code** — slopscan detects these; it does not cause them.
 - **Vulnerabilities in Semgrep or detect-secrets** — report these to the respective upstream projects:
   - Semgrep: [github.com/returntocorp/semgrep](https://github.com/returntocorp/semgrep/security)
   - detect-secrets: [github.com/Yelp/detect-secrets](https://github.com/Yelp/detect-secrets/security)
@@ -50,4 +50,6 @@ We acknowledge security reporters in:
 - The GitHub Release notes for that version
 - The Security Advisory itself (with reporter's permission)
 
-Thank you for helping keep vibe-guard and the projects that use it secure.
+Thank you for helping keep slopscan and the projects that use it secure.
+
+

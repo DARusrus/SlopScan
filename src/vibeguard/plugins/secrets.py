@@ -134,7 +134,7 @@ class SecretsPlugin:
                 secret_type = secret.get("type", "Unknown")
                 findings.append(
                     Finding(
-                        rule_id="vibeguard-secrets-detected",
+                        rule_id="slopscan-secrets-detected",
                         severity="CRITICAL",
                         file_path=file_path,
                         line=line_num,

@@ -114,7 +114,7 @@ class DotenvPlugin(BasePlugin):
             # Step B — Check .gitignore exclusion
             if not self._is_in_gitignore(rel_path, gitignore_patterns):
                 f = self._make_finding(
-                    rule_id="vibeguard-dotenv-not-in-gitignore",
+                    rule_id="slopscan-dotenv-not-in-gitignore",
                     severity="CRITICAL",
                     file_path=str(env_file),
                     line=1,
@@ -260,7 +260,7 @@ class DotenvPlugin(BasePlugin):
             if is_secret:
                 findings.append(
                     self._make_finding(
-                        rule_id="vibeguard-dotenv-exposed-secret",
+                        rule_id="slopscan-dotenv-exposed-secret",
                         severity="CRITICAL",
                         file_path=str(env_file),
                         line=line_num,

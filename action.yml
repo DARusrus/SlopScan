@@ -1,4 +1,4 @@
-name: 'vibe-guard'
+name: 'slopscan'
 description: 'Security scanner for AI-generated code. Catches SQLi, secrets, SSRF, and 15 more patterns.'
 branding:
   icon: 'shield'
@@ -62,26 +62,26 @@ runs:
         python-version: ${{ inputs.python-version }}
         cache: 'pip'
 
-    - name: Install vibe-guard
+    - name: Install slopscan
       shell: bash
       run: |
-        pip install vibe-guard --quiet
+        pip install slopscan --quiet
 
-    - name: Run vibe-guard scan
+    - name: Run slopscan scan
       shell: bash
       id: scan
       run: |
-        SARIF_PATH="${{ runner.temp }}/vibe-guard-results.sarif"
-        JSON_PATH="${{ runner.temp }}/vibe-guard-summary.json"
+        SARIF_PATH="${{ runner.temp }}/slopscan-results.sarif"
+        JSON_PATH="${{ runner.temp }}/slopscan-summary.json"
 
-        vibe-guard scan "${{ inputs.path }}" \
+        slopscan scan "${{ inputs.path }}" \
           --severity "${{ inputs.severity }}" \
           --ai-threshold "${{ inputs.ai-threshold }}" \
           --format sarif \
           --output "${SARIF_PATH}" \
           --no-fail
 
-        vibe-guard scan "${{ inputs.path }}" \
+        slopscan scan "${{ inputs.path }}" \
           --severity "${{ inputs.severity }}" \
           --ai-threshold "${{ inputs.ai-threshold }}" \
           --format json \
@@ -124,7 +124,7 @@ runs:
         echo "high-count=${HIGH}" >> "${GITHUB_OUTPUT}"
         echo "sarif-path=${SARIF_PATH}" >> "${GITHUB_OUTPUT}"
 
-        echo "## vibe-guard Results" >> "${GITHUB_STEP_SUMMARY}"
+        echo "## slopscan Results" >> "${GITHUB_STEP_SUMMARY}"
         echo "" >> "${GITHUB_STEP_SUMMARY}"
         echo "| Metric | Value |" >> "${GITHUB_STEP_SUMMARY}"
         echo "|--------|-------|" >> "${GITHUB_STEP_SUMMARY}"
@@ -138,7 +138,7 @@ runs:
       uses: github/codeql-action/upload-sarif@v3
       with:
         sarif_file: ${{ steps.scan.outputs.sarif-path }}
-        category: 'vibe-guard'
+        category: 'slopscan'
 
     - name: Fail if findings present
       if: inputs.fail-on-findings == 'true'
@@ -146,7 +146,7 @@ runs:
       run: |
         COUNT="${{ steps.scan.outputs.findings-count }}"
         if [ "${COUNT}" -gt "0" ]; then
-          echo "::error::vibe-guard found ${COUNT} security issue(s) in AI-generated code."
+          echo "::error::slopscan found ${COUNT} security issue(s) in AI-generated code."
           echo "See the Security tab for inline annotations."
           exit 1
         fi

@@ -1,19 +1,19 @@
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=28&pause=1000&color=E74C3C&center=true&vCenter=true&width=600&lines=vibe-guard;AI-aware+security+scanner;Find+vulns+before+they+ship" alt="vibe-guard" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=28&pause=1000&color=E74C3C&center=true&vCenter=true&width=600&lines=slopscan;AI-aware+security+scanner;Find+vulns+before+they+ship" alt="slopscan" />
 
 <br/>
 
 **45% of AI-generated code has security vulnerabilities.**
-**vibe-guard is built for that.**
+**slopscan is built for that.**
 
 <br/>
 
-[![PyPI version](https://img.shields.io/pypi/v/vibe-guard?style=for-the-badge&logo=pypi&logoColor=white&color=E74C3C)](https://pypi.org/project/vibe-guard/)
+[![PyPI version](https://img.shields.io/pypi/v/slopscan?style=for-the-badge&logo=pypi&logoColor=white&color=E74C3C)](https://pypi.org/project/slopscan/)
 [![Python](https://img.shields.io/badge/python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
-[![CI](https://img.shields.io/github/actions/workflow/status/YOUR-USERNAME/vibe-guard/ci.yml?style=for-the-badge&logo=github-actions&logoColor=white&label=CI)](https://github.com/YOUR-USERNAME/vibe-guard/actions)
-[![Rules](https://img.shields.io/badge/rules-81-brightgreen?style=for-the-badge&logo=semgrep&logoColor=white)](https://github.com/YOUR-USERNAME/vibe-guard/tree/main/rules)
-[![Security Score](https://img.shields.io/badge/vibe--guard-B%20(85)-green?style=for-the-badge)](https://github.com/YOUR-USERNAME/vibe-guard)
+[![CI](https://img.shields.io/github/actions/workflow/status/DARusrus/slopscan/ci.yml?style=for-the-badge&logo=github-actions&logoColor=white&label=CI)](https://github.com/DARusrus/slopscan/actions)
+[![Rules](https://img.shields.io/badge/rules-81-brightgreen?style=for-the-badge&logo=semgrep&logoColor=white)](https://github.com/DARusrus/slopscan/tree/main/rules)
+[![Security Score](https://img.shields.io/badge/slopscan-B%20(85)-green?style=for-the-badge)](https://github.com/DARusrus/slopscan)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
 
 [![Languages](https://img.shields.io/badge/Python-3DDC84?style=flat-square&logo=python&logoColor=white)](rules/python/)
@@ -33,11 +33,11 @@
 
 AI coding tools ship code fast. They also ship SQL injection, hardcoded API keys, and SSRF at scale — and generic SAST tools were not designed for this.
 
-**vibe-guard** detects AI-generated files first using three offline heuristics — comment patterns, structural regularity, and token fingerprints — then applies stricter scanning exactly where the risk is highest. It also detects slopsquatting (hallucinated package names that attackers pre-register), secrets in `.env` and MCP config files, and prompt injection strings in source code.
+**slopscan** detects AI-generated files first using three offline heuristics — comment patterns, structural regularity, and token fingerprints — then applies stricter scanning exactly where the risk is highest. It also detects slopsquatting (hallucinated package names that attackers pre-register), secrets in `.env` and MCP config files, and prompt injection strings in source code.
 
 ```bash
-pip install vibe-guard
-vibe-guard scan .
+pip install slopscan
+slopscan scan .
 ```
 
 ---
@@ -71,7 +71,7 @@ Terminal · SARIF · JSON
 ## Install
 
 ```bash
-pip install vibe-guard
+pip install slopscan
 ```
 
 Requires Python 3.10+. Semgrep and detect-secrets are installed automatically.
@@ -82,28 +82,28 @@ Requires Python 3.10+. Semgrep and detect-secrets are installed automatically.
 
 **Scan your project:**
 ```bash
-vibe-guard scan .
+slopscan scan .
 ```
 
 **Scan only changed files (faster in CI):**
 ```bash
-vibe-guard scan . --diff
+slopscan scan . --diff
 ```
 
 **Get your security score and badge:**
 ```bash
-vibe-guard score .
+slopscan score .
 ```
 
 **AI-powered fix suggestions** (requires free [Gemini API key](https://ai.google.dev)):
 ```bash
 export GEMINI_API_KEY=your-key-here
-vibe-guard fix .
+slopscan fix .
 ```
 
 **Set up pre-commit + GitHub Action in 60 seconds:**
 ```bash
-vibe-guard init
+slopscan init
 ```
 
 ---
@@ -111,13 +111,13 @@ vibe-guard init
 ## GitHub Action
 
 ```yaml
-- uses: YOUR-USERNAME/vibe-guard@v1
+- uses: DARusrus/slopscan@v1
 ```
 
 Full configuration:
 
 ```yaml
-name: vibe-guard security scan
+name: slopscan security scan
 
 on: [push, pull_request]
 
@@ -133,7 +133,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: YOUR-USERNAME/vibe-guard@v1
+      - uses: DARusrus/slopscan@v1
         with:
           severity: medium           # minimum severity to report
           fail-on-findings: true     # exit 1 if findings exist
@@ -149,10 +149,10 @@ Findings appear inline on pull requests via the GitHub Security tab.
 
 ```yaml
 repos:
-  - repo: https://github.com/YOUR-USERNAME/vibe-guard
+  - repo: https://github.com/DARusrus/slopscan
     rev: v0.1.0
     hooks:
-      - id: vibe-guard
+      - id: slopscan
 ```
 
 ---
@@ -277,7 +277,7 @@ repos:
 
 ## Supply chain detection
 
-vibe-guard also runs supply chain checks that go beyond Semgrep rules:
+slopscan also runs supply chain checks that go beyond Semgrep rules:
 
 | Plugin | What it detects |
 |--------|----------------|
@@ -301,18 +301,18 @@ export GEMINI_API_KEY=your-key-here
 
 | Feature | Command | What it does |
 |---------|---------|-------------|
-| Auto-fix | `vibe-guard fix .` | Generates a context-aware secure replacement for each finding, shows a diff, asks for confirmation before applying |
-| Explain | `vibe-guard scan . --explain` | Adds a plain-English attack scenario to each finding — what an attacker can actually do with it |
-| Smart filter | `vibe-guard scan . --smart-filter` | Uses AI to remove likely false positives from HIGH/CRITICAL findings before surfacing them |
+| Auto-fix | `slopscan fix .` | Generates a context-aware secure replacement for each finding, shows a diff, asks for confirmation before applying |
+| Explain | `slopscan scan . --explain` | Adds a plain-English attack scenario to each finding — what an attacker can actually do with it |
+| Smart filter | `slopscan scan . --smart-filter` | Uses AI to remove likely false positives from HIGH/CRITICAL findings before surfacing them |
 
 ---
 
 ## Configuration
 
-Create `.vibeguard.toml` in your project root:
+Create `.Slopscan.toml` in your project root:
 
 ```toml
-[vibe-guard]
+[slopscan]
 min_severity = "MEDIUM"     # CRITICAL | HIGH | MEDIUM | LOW
 ai_threshold = 0.6          # 0.0–1.0 — files above this get full scan
 fail_on_findings = true     # exit 1 in CI when findings exist
@@ -331,17 +331,17 @@ exclude_paths = [
 
 ## Commands
 
-vibe-guard scan [PATH]    Scan a directory or file
-vibe-guard fix [PATH]     AI-powered fix suggestions (needs GEMINI_API_KEY)
-vibe-guard score [PATH]   Security score + README badge
-vibe-guard rules          List all 81 built-in rules
-vibe-guard init           Interactive setup wizard
+slopscan scan [PATH]    Scan a directory or file
+slopscan fix [PATH]     AI-powered fix suggestions (needs GEMINI_API_KEY)
+slopscan score [PATH]   Security score + README badge
+slopscan rules          List all 81 built-in rules
+slopscan init           Interactive setup wizard
 
 ---
 
-## How vibe-guard compares
+## How slopscan compares
 
-| | vibe-guard | Semgrep CE | Bandit | detect-secrets |
+| | slopscan | Semgrep CE | Bandit | detect-secrets |
 |---|:---:|:---:|:---:|:---:|
 | AI-aware detection | ✓ | ✗ | ✗ | ✗ |
 | Supply chain / slopsquatting | ✓ | ✗ | ✗ | ✗ |
@@ -364,3 +364,4 @@ Writing a YAML rule takes under 30 minutes and has the highest impact per hour o
 ## License
 
 MIT — see [LICENSE](LICENSE).
+

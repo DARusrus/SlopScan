@@ -46,7 +46,7 @@ class TerminalReporter(BaseReporter):
 
     def _render_header(self, console: Console) -> None:
         """Render product title and opening rule."""
-        console.print(f"[bold magenta]vibe-guard v{__version__}[/bold magenta]")
+        console.print(f"[bold magenta]slopscan v{__version__}[/bold magenta]")
         console.print("AI-aware security scanner")
         console.print(Rule())
 

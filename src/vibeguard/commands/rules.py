@@ -36,7 +36,7 @@ def list_rules(
         and (not category_filter or row["category"].lower() == category_filter)
     ]
 
-    table = Table(title="Built-in vibe-guard rules")
+    table = Table(title="Built-in slopscan rules")
     table.add_column("ID", overflow="fold")
     table.add_column("Language")
     table.add_column("Severity")

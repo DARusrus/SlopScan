@@ -8,7 +8,7 @@ from rich.table import Table
 
 
 def run_init_wizard(path: Path = Path(".")) -> None:
-    """Interactive wizard that configures vibe-guard for a project."""
+    """Interactive wizard that configures slopscan for a project."""
     console = Console()
     root = path.resolve()
     created_items: list[tuple[str, str]] = []
@@ -41,7 +41,7 @@ def run_init_wizard(path: Path = Path(".")) -> None:
     console.print("[green]✓ Created .vibeguard.toml[/green]")
     created_items.append((".vibeguard.toml", "created"))
 
-    add_pre_commit = typer.confirm("Add vibe-guard as a pre-commit hook?", default=True)
+    add_pre_commit = typer.confirm("Add slopscan as a pre-commit hook?", default=True)
     if add_pre_commit:
         pre_commit_file = _ensure_pre_commit(root)
         console.print("[green]✓ pre-commit hook added[/green]")
@@ -53,13 +53,13 @@ def run_init_wizard(path: Path = Path(".")) -> None:
     add_workflow = typer.confirm("Add GitHub Actions workflow?", default=True)
     if add_workflow:
         workflow_file = _ensure_workflow(root)
-        console.print("[green]✓ Created .github/workflows/vibe-guard.yml[/green]")
+        console.print("[green]✓ Created .github/workflows/slopscan.yml[/green]")
         created_items.append((str(workflow_file.relative_to(root)), "created"))
     else:
-        created_items.append((".github/workflows/vibe-guard.yml", "skipped"))
+        created_items.append((".github/workflows/slopscan.yml", "skipped"))
 
     _print_summary(console, created_items)
-    console.print("Run 'vibe-guard scan .' to start scanning.")
+    console.print("Run 'slopscan scan .' to start scanning.")
 
 
 def _write_config_file(
@@ -68,7 +68,7 @@ def _write_config_file(
     """Write the main .vibeguard.toml file."""
     config_file.parent.mkdir(parents=True, exist_ok=True)
     content = (
-        "[vibeguard]\n"
+        "[slopscan]\n"
         f'min_severity = "{min_severity}"\n'
         f"ai_threshold = {ai_threshold}\n"
         f"fail_on_findings = {str(fail_ci).lower()}\n"
@@ -77,18 +77,18 @@ def _write_config_file(
 
 
 def _ensure_pre_commit(root: Path) -> Path:
-    """Create or update pre-commit configuration with vibe-guard hook."""
+    """Create or update pre-commit configuration with slopscan hook."""
     pre_commit_file = root / ".pre-commit-config.yaml"
     hook_block = (
-        "  - repo: https://github.com/ahmbt/vibe-guard\n"
+        "  - repo: https://github.com/ahmbt/slopscan\n"
         "    rev: v0.1.0\n"
         "    hooks:\n"
-        "      - id: vibe-guard\n"
+        "      - id: slopscan\n"
     )
 
     if pre_commit_file.exists():
         existing = pre_commit_file.read_text(encoding="utf-8")
-        if "https://github.com/ahmbt/vibe-guard" not in existing:
+        if "https://github.com/ahmbt/slopscan" not in existing:
             content = existing.rstrip() + "\n" + hook_block
             pre_commit_file.write_text(content, encoding="utf-8")
     else:
@@ -98,12 +98,12 @@ def _ensure_pre_commit(root: Path) -> Path:
 
 
 def _ensure_workflow(root: Path) -> Path:
-    """Create the default GitHub Actions workflow for vibe-guard."""
-    workflow_file = root / ".github" / "workflows" / "vibe-guard.yml"
+    """Create the default GitHub Actions workflow for slopscan."""
+    workflow_file = root / ".github" / "workflows" / "slopscan.yml"
     workflow_file.parent.mkdir(parents=True, exist_ok=True)
 
     workflow_file.write_text(
-        "name: vibe-guard security scan\n"
+        "name: slopscan security scan\n"
         "on:\n"
         "  push:\n"
         "    branches: [main]\n"
@@ -118,7 +118,7 @@ def _ensure_workflow(root: Path) -> Path:
         "      - uses: actions/checkout@v4\n"
         "        with:\n"
         "          fetch-depth: 0\n"
-        "      - uses: ahmbt/vibe-guard@v1\n"
+        "      - uses: ahmbt/slopscan@v1\n"
         "        with:\n"
         "          severity: medium\n"
         "          fail-on-findings: true\n",
@@ -129,7 +129,7 @@ def _ensure_workflow(root: Path) -> Path:
 
 def _print_summary(console: Console, created_items: list[tuple[str, str]]) -> None:
     """Render a summary table of initialization changes."""
-    table = Table(title="vibe-guard init summary")
+    table = Table(title="slopscan init summary")
     table.add_column("Item")
     table.add_column("Status")
 

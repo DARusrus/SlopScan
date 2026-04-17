@@ -87,9 +87,9 @@ class TestSarifReporter:
         data = json.loads(get_reporter("sarif").render(sample_result))
         assert len(data["runs"]) == 1
 
-    def test_sarif_tool_name_is_vibe_guard(self, sample_result: ScanResult) -> None:
+    def test_sarif_tool_name_is_slopscan(self, sample_result: ScanResult) -> None:
         data = json.loads(get_reporter("sarif").render(sample_result))
-        assert data["runs"][0]["tool"]["driver"]["name"] == "vibe-guard"
+        assert data["runs"][0]["tool"]["driver"]["name"] == "slopscan"
 
     def test_sarif_results_count_matches_findings(self, sample_result: ScanResult) -> None:
         data = json.loads(get_reporter("sarif").render(sample_result))
@@ -121,7 +121,7 @@ class TestJsonReporter:
     def test_json_has_required_top_level_keys(self, sample_result: ScanResult) -> None:
         data = json.loads(get_reporter("json").render(sample_result))
         for key in (
-            "vibe_guard_version",
+            "slopscan_version",
             "scan_timestamp",
             "summary",
             "findings",

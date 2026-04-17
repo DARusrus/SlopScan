@@ -1,4 +1,4 @@
-[vibeguard]
+[Slopscan]
 
 # Minimum severity level to report.
 # Options: CRITICAL, HIGH, MEDIUM, LOW
@@ -37,7 +37,7 @@ exclude_paths = [
 ]
 
 # Rule IDs to ignore across all scans. Use sparingly.
-# Example: ignore_rules = ["vibeguard-python-cors-wildcard"]
+# Example: ignore_rules = ["Slopscan-python-cors-wildcard"]
 ignore_rules = []
 
 # Additional directories containing custom YAML rules.
@@ -56,3 +56,5 @@ online_sca = false
 
 # Security score threshold — fail CI if score drops below this
 min_score = 0
+
+

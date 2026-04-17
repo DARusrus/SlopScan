@@ -46,7 +46,7 @@ _GRADE_COLORS: dict[str, str] = {
     "F": "red",
 }
 
-_HISTORY_DB = ".vibeguard-history.db"
+_HISTORY_DB = ".slopscan-history.db"
 
 
 # ── Public API ───────────────────────────────────────────────────
@@ -102,10 +102,10 @@ def calculate_score(result: ScanResult) -> tuple[int, str]:
 def generate_badge_url(grade: str, score: int) -> str:
     """Generate a shields.io badge URL for the given grade and score.
 
-    Example: https://img.shields.io/badge/vibe--guard-A%20(94)-brightgreen
+    Example: https://img.shields.io/badge/slopscan-A%20(94)-brightgreen
     """
     color = _GRADE_COLORS.get(grade, "lightgrey")
-    return f"https://img.shields.io/badge/vibe--guard-{grade}%20({score})-{color}"
+    return f"https://img.shields.io/badge/slopscan-{grade}%20({score})-{color}"
 
 
 def store_history(
@@ -253,7 +253,7 @@ def run_score(
 
     body_lines.append(f"Badge URL:\n{badge_url}")
     body_lines.append("")
-    body_lines.append(f"Markdown:\n![vibe-guard score]({badge_url})")
+    body_lines.append(f"Markdown:\n![slopscan score]({badge_url})")
 
     body = "\n".join(body_lines)
 
@@ -268,7 +268,7 @@ def run_score(
     console.print(
         Panel(
             body,
-            title=f"[{grade_style}]vibe-guard security score[/]",
+            title=f"[{grade_style}]slopscan security score[/]",
             border_style=grade_style,
             expand=False,
         )
@@ -294,17 +294,17 @@ def _count_by_severity(result: ScanResult) -> dict[str, int]:
 
 
 def _update_readme_badge(badge_url: str) -> None:
-    """Replace existing vibe-guard badge in README.md or append it."""
+    """Replace existing slopscan badge in README.md or append it."""
     readme = Path("README.md")
     if not readme.exists():
         logger.info("No README.md found — skipping badge update")
         return
 
     content = readme.read_text(encoding="utf-8")
-    badge_md = f"![vibe-guard score]({badge_url})"
+    badge_md = f"![slopscan score]({badge_url})"
 
     # Replace existing badge
-    pattern = r"!\[vibe-guard score\]\(https://img\.shields\.io/badge/vibe--guard-[^)]+\)"
+    pattern = r"!\[slopscan score\]\(https://img\.shields\.io/badge/slopscan-[^)]+\)"
     if re.search(pattern, content):
         content = re.sub(pattern, badge_md, content)
     else:

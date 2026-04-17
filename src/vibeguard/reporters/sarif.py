@@ -30,9 +30,9 @@ class SarifReporter(BaseReporter):
                 {
                     "tool": {
                         "driver": {
-                            "name": "vibe-guard",
+                            "name": "slopscan",
                             "version": __version__,
-                            "informationUri": "https://github.com/ahmbt/vibe-guard",
+                            "informationUri": "https://github.com/ahmbt/slopscan",
                             "rules": rules,
                         }
                     },
@@ -57,7 +57,7 @@ class SarifReporter(BaseReporter):
                 "name": _to_pascal_case(finding.rule_id),
                 "shortDescription": {"text": finding.message},
                 "fullDescription": {"text": f"{finding.message}. {finding.fix_guidance}".strip()},
-                "helpUri": "https://github.com/ahmbt/vibe-guard/blob/main/rules/",
+                "helpUri": "https://github.com/ahmbt/slopscan/blob/main/rules/",
                 "properties": {
                     "tags": [finding.rule_category, "security", "ai-generated"],
                     "severity": finding.severity,
@@ -92,7 +92,7 @@ class SarifReporter(BaseReporter):
                 "fix_guidance": finding.fix_guidance,
                 "ai_context": finding.ai_context,
                 "file_confidence": finding.file_confidence,
-                "vibe_guard_severity": finding.severity,
+                "slopscan_severity": finding.severity,
             },
         }
 

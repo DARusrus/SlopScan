@@ -1,11 +1,11 @@
-# Contributing to vibe-guard
+# Contributing to slopscan
 
 Every contribution makes AI-generated code safer. Whether you write a rule, improve the detector, or fix a typo — thank you.
 
 ## The fastest way to contribute
 
 - **Write a new YAML rule.** Pick a vulnerability pattern AI models produce, write a Semgrep rule, and add a test fixture. Start to finish in under 30 minutes. See [Writing a new security rule](#writing-a-new-security-rule) below.
-- **Improve a detector signal weight.** Run the detector on real AI-generated code, find where it under- or over-scores, and adjust weights in `src/vibeguard/detector.py`. See [Improving the AI detector](#improving-the-ai-detector).
+- **Improve a detector signal weight.** Run the detector on real AI-generated code, find where it under- or over-scores, and adjust weights in `src/Slopscan/detector.py`. See [Improving the AI detector](#improving-the-ai-detector).
 - **Add a test fixture.** Drop a real-world vulnerable code sample into `tests/fixtures/` and verify the scanner catches it. Every fixture makes the test suite stronger.
 
 ## Development setup
@@ -13,8 +13,8 @@ Every contribution makes AI-generated code safer. Whether you write a rule, impr
 From zero to running tests in four commands:
 
 ```bash
-git clone https://github.com/ahmbt/vibe-guard.git
-cd vibe-guard
+git clone https://github.com/DARusrus/slopscan.git
+cd slopscan
 pip install -e ".[dev]"
 pre-commit install
 ```
@@ -23,7 +23,7 @@ Verify everything works:
 
 ```bash
 pytest
-vibe-guard scan .
+slopscan scan .
 ```
 
 You need Python 3.10+ and [Semgrep CE](https://semgrep.dev/) installed for integration tests. Unit tests run without Semgrep.
@@ -31,10 +31,10 @@ You need Python 3.10+ and [Semgrep CE](https://semgrep.dev/) installed for integ
 ## Project structure
 
 ```
-src/vibeguard/
+src/Slopscan/
 ├── __init__.py          # Package version
 ├── cli.py               # Typer CLI entrypoint
-├── config.py            # .vibeguard.toml loader
+├── config.py            # .Slopscan.toml loader
 ├── detector.py          # AI code detector (aggregates signals)
 ├── engine.py            # Semgrep subprocess wrapper
 ├── scanner.py           # Scan orchestrator (detector → engine → findings)
@@ -74,7 +74,7 @@ Rules are Semgrep YAML files in the `rules/` directory, organized by language.
 
 ```yaml
 rules:
-  - id: vibeguard-python-sqli-fstring
+  - id: Slopscan-python-sqli-fstring
     languages: [python]
     severity: ERROR                    # Semgrep severity: ERROR, WARNING, INFO
     message: >
@@ -88,7 +88,7 @@ rules:
         Use parameterized queries instead of string interpolation.
         Replace cursor.execute(f"SELECT * FROM users WHERE id = {user_id}")
         with cursor.execute("SELECT * FROM users WHERE id = %s", (user_id,))
-      ai_context: >                    # ← This is what makes vibe-guard unique
+      ai_context: >                    # ← This is what makes slopscan unique
         AI models default to f-strings for SQL queries because training
         examples prioritize readability over security, producing vulnerable
         code that looks clean and idiomatic.
@@ -124,7 +124,7 @@ semgrep --validate --config rules/
 3. Run the scanner against your fixture:
 
 ```bash
-vibe-guard scan tests/fixtures/my_vuln_sample.py --format terminal --no-fail
+slopscan scan tests/fixtures/my_vuln_sample.py --format terminal --no-fail
 ```
 
 4. Add assertions to a test file if the pattern is complex.
@@ -143,9 +143,9 @@ Each signal returns a float 0.0–1.0. The detector in `detector.py` combines th
 
 ### Adding a new signal
 
-1. Create `src/vibeguard/signals/mysignal.py` with a function that takes file content and returns a float 0.0–1.0.
-2. Register it in `src/vibeguard/signals/__init__.py`.
-3. Add the weight in `src/vibeguard/detector.py`.
+1. Create `src/Slopscan/signals/mysignal.py` with a function that takes file content and returns a float 0.0–1.0.
+2. Register it in `src/Slopscan/signals/__init__.py`.
+3. Add the weight in `src/Slopscan/detector.py`.
 4. Test against the fixture files:
    - `tests/fixtures/ai_sample.py` should score **high** (≥ 0.6)
    - `tests/fixtures/human_sample.py` should score **low** (< 0.4)
@@ -170,7 +170,7 @@ pytest -v
 pytest tests/test_detector.py
 
 # Run with coverage report
-pytest --cov=vibeguard --cov-report=html
+pytest --cov=Slopscan --cov-report=html
 ```
 
 **Integration tests** (in `test_scanner.py`) require Semgrep to be installed. They are automatically skipped if Semgrep is not available. Unit tests always run.
@@ -202,7 +202,7 @@ rule: python insecure random for cryptographic use
 Every PR runs:
 1. `ruff check src/ tests/` — must produce zero errors
 2. `pytest --tb=short -q` — all tests must pass
-3. `vibe-guard scan .` — dogfood scan (via `dogfood.yml`)
+3. `slopscan scan .` — dogfood scan (via `dogfood.yml`)
 
 ### What reviewers look for
 
@@ -215,7 +215,7 @@ Every PR runs:
 
 ### Publishing a new version
 
-1. Bump the version in `src/vibeguard/__init__.py`:
+1. Bump the version in `src/Slopscan/__init__.py`:
 
 ```python
 __version__ = "0.2.0"
@@ -255,7 +255,7 @@ Before the first tag push, configure PyPI to trust your GitHub Actions workflow:
 2. Select **GitHub Actions**
 3. Fill in:
    - **Repository owner:** ahmbt
-   - **Repository name:** vibe-guard
+   - **Repository name:** slopscan
    - **Workflow name:** `publish.yml`
    - **Environment name:** `pypi`
 4. Save. No API tokens needed — OIDC handles authentication.
@@ -273,3 +273,6 @@ Required conventions:
 - Docstrings on all public functions
 - Import sorting via `ruff` (isort-compatible)
 - Line length: 100 characters (configured in `pyproject.toml`)
+
+
+

@@ -198,7 +198,7 @@ class TestSecretsPlugin:
             findings = plugin.scan_files([secret_file])
 
         assert len(findings) >= 1
-        assert findings[0].rule_id == "vibeguard-secrets-detected"
+        assert findings[0].rule_id == "slopscan-secrets-detected"
         assert findings[0].severity == "CRITICAL"
 
     def test_scan_files_returns_empty_for_clean_file(self, tmp_path: Path) -> None:

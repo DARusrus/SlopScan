@@ -105,7 +105,7 @@ class MCPConfigPlugin(BasePlugin):
             rel_path = str(mcp_file.relative_to(project_root))
             if not self._is_in_gitignore(rel_path, mcp_file.name, gitignore_patterns):
                 f = self._make_finding(
-                    rule_id="vibeguard-mcp-config-not-in-gitignore",
+                    rule_id="slopscan-mcp-config-not-in-gitignore",
                     severity="CRITICAL",
                     file_path=str(mcp_file),
                     line=1,
@@ -299,7 +299,7 @@ class MCPConfigPlugin(BasePlugin):
             masked = value[:6] + "..." if len(value) > 6 else "***"
             findings.append(
                 self._make_finding(
-                    rule_id="vibeguard-mcp-config-secret",
+                    rule_id="slopscan-mcp-config-secret",
                     severity="CRITICAL",
                     file_path=str(mcp_file),
                     line=1,

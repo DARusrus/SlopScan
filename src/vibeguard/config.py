@@ -100,14 +100,14 @@ def _merge_toml(config: Config, data: dict[str, Any]) -> Config:
     merged = Config(**config.__dict__)
 
     sources: list[dict[str, Any]] = [data]
-    for section in ("vibeguard", "vibe-guard", "vibe_guard"):
+    for section in ("slopscan",):
         section_data = data.get(section)
         if isinstance(section_data, dict):
             sources.append(section_data)
 
     tool_section = data.get("tool")
     if isinstance(tool_section, dict):
-        for section in ("vibeguard", "vibe-guard", "vibe_guard"):
+        for section in ("slopscan",):
             section_data = tool_section.get(section)
             if isinstance(section_data, dict):
                 sources.append(section_data)

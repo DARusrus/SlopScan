@@ -1,8 +1,8 @@
 FROM python:3.11-slim
 
-LABEL org.opencontainers.image.title="vibe-guard"
+LABEL org.opencontainers.image.title="slopscan"
 LABEL org.opencontainers.image.description="AI-aware security scanner"
-LABEL org.opencontainers.image.source="https://github.com/ahmbt/vibe-guard"
+LABEL org.opencontainers.image.source="https://github.com/ahmbt/slopscan"
 LABEL org.opencontainers.image.licenses="MIT"
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -17,5 +17,5 @@ RUN pip install --no-cache-dir . \
     && pip install --no-cache-dir semgrep detect-secrets
 
 WORKDIR /scan
-ENTRYPOINT ["vibe-guard"]
+ENTRYPOINT ["slopscan"]
 CMD ["scan", ".", "--format", "terminal"]

@@ -95,7 +95,7 @@ class TestScanCommand:
         """--version must print the version string and exit 0."""
         result = runner.invoke(app, ["--version"])
         assert result.exit_code == 0
-        assert "vibe-guard" in result.output
+        assert "slopscan" in result.output
 
 
 class TestRulesCommand:
@@ -103,7 +103,7 @@ class TestRulesCommand:
         """rules command must produce output containing rule IDs."""
         result = runner.invoke(app, ["rules"])
         assert result.exit_code == 0
-        assert "vibeguard" in result.output
+        assert "slopscan" in result.output
 
     def test_rules_list_language_filter(self) -> None:
         """--language python must only show python rules."""
@@ -130,11 +130,11 @@ class TestInitCommand:
     def test_init_aborts_on_existing_config_when_declined(self, tmp_path) -> None:
         """init must not overwrite existing config if user declines."""
         existing = tmp_path / ".vibeguard.toml"
-        existing.write_text("[vibe-guard]\n", encoding="utf-8")
+        existing.write_text("[slopscan]\n", encoding="utf-8")
         result = runner.invoke(
             app,
             ["init", str(tmp_path)],
             input="n\n",
         )
         assert result.exit_code == 0
-        assert existing.read_text(encoding="utf-8") == "[vibe-guard]\n"
+        assert existing.read_text(encoding="utf-8") == "[slopscan]\n"

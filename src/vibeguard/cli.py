@@ -19,7 +19,7 @@ from vibeguard.scanner import Scanner
 logger = logging.getLogger(__name__)
 
 app = typer.Typer(
-    name="vibe-guard",
+    name="slopscan",
     help="AI-aware security scanner. Finds vulnerabilities in AI-generated code.",
     rich_markup_mode="rich",
     no_args_is_help=True,
@@ -384,7 +384,7 @@ def rules(
 def version_callback(value: bool) -> None:
     """Print package version and exit when --version is passed."""
     if value:
-        typer.echo(f"vibe-guard {__version__}")
+        typer.echo(f"slopscan {__version__}")
         raise typer.Exit()
 
 

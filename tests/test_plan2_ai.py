@@ -23,7 +23,7 @@ from vibeguard.models import Finding, ScanResult
 def make_finding(severity: str = "MEDIUM") -> Finding:
     """Create a minimal Finding for testing."""
     return Finding(
-        rule_id=f"vibeguard-test-{severity.lower()}",
+        rule_id=f"slopscan-test-{severity.lower()}",
         severity=severity,
         file_path="test_app.py",
         line=10,
@@ -35,7 +35,7 @@ def make_finding(severity: str = "MEDIUM") -> Finding:
         file_confidence=0.8,
         rule_category="sqli",
         snippet="cursor.execute(f'SELECT * FROM users WHERE id = {user_id}')",
-        semgrep_rule_id=f"vibeguard-test-{severity.lower()}",
+        semgrep_rule_id=f"slopscan-test-{severity.lower()}",
     )
 
 
@@ -298,7 +298,7 @@ class TestScoreCalculation:
 
         url = generate_badge_url("A", 94)
         assert "shields.io" in url
-        assert "vibe" in url.lower()
+        assert "slopscan" in url.lower()
         assert url.startswith("https://")
 
     def test_score_zero_findings_low_ai_ratio(self) -> None:

@@ -21,7 +21,7 @@ class JsonReporter(BaseReporter):
         by_severity = result.findings_by_severity()
 
         payload = {
-            "vibe_guard_version": __version__,
+            "slopscan_version": __version__,
             "scan_timestamp": datetime.now(UTC).isoformat(),
             "summary": {
                 "files_scanned": result.files_scanned,
